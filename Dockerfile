@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN usermod -m nonroot
+USER nonroot
+
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir \
     torch==2.0.1+cpu \
