@@ -6,9 +6,9 @@ whisper with docker
 ## Setup
 Install Docker.
 
+Execute following command to build an image:
+
 ```sh
-$ git clone https://github.com/h-takeyeah/whisper-docker
-$ cd whisper-docker
 $ docker build -t whisper .
 ```
 

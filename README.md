@@ -4,11 +4,11 @@ whisper with docker
 :memo: オリジナルのリポジトリ [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker) と異なり、 Dockerfile ではイメージのサイズを節約するために CPU-only の PyTorch を利用しています。
 
 ## セットアップ
-Docker をインストールします。
+Docker Desktop または Docker Engine はインストール済みとします。
+
+次のコマンドでイメージをビルドします:
 
 ```sh
-$ git clone https://github.com/h-takeyeah/whisper-docker
-$ cd whisper-docker
 $ docker build -t whisper .
 ```
 
