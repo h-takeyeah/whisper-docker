@@ -1,10 +1,10 @@
 # whisper-docker
 whisper with docker
 
-:memo: Unlike the original repo [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker), my Dockerfile uses the CPU-only version of PyTorch to save image size.
+:memo: オリジナルのリポジトリ [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker) と異なり、 Dockerfile ではイメージのサイズを節約するために CPU-only の PyTorch を利用しています。
 
-## Setup
-Install Docker.
+## セットアップ
+Docker をインストールします。
 
 ```sh
 $ git clone https://github.com/h-takeyeah/whisper-docker
@@ -12,11 +12,11 @@ $ cd whisper-docker
 $ docker build -t whisper .
 ```
 
-> The image size will be approximately 2GB (not including models).
+> イメージのサイズは約 2GB になると見込まれます(推論モデルを含まない容量です)。
 
-## Usage
-### Voice recognition with microphone
-Execute following command in `whisper-docker` directory.
+## 使い方
+### マイクを使った音声認識
+`whisper-docker` ディレクトリで次のコマンドを実行します:
 
 ```sh
 $ docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
@@ -24,27 +24,29 @@ $ docker exec -it whisper bash
 nonroot@hostname:/workspace$ python whisper-server.py
 ```
 
-Open new terminal and execute following command:
+新しい端末を開き、次のコマンドを実行します:
 
 ```sh
 $ python mic.py
 ```
 
-> `mic.py` requires [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI).
+> `mic.py` を実行するには [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) がインストールされている必要があります。
 
-### Transcribe
+### 文字起こし
 Prepare audio file (ex: `input.wav`) and execute following command **in** `whisper-docker` directory.
+`whisper-docker` ディレクトリ以下に音声ファイルを用意し (例: `input.wav`) 、次のコマンドを `whisper-docker` ディレクトリ**の中で**実行します:
 
 ```sh
 $ docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
 $ docker exec -it whisper python transcribe.py --model='base' --input_file='input.wav' --output_format='tsv' --language='ja'
 ```
 
-> This command, `docker run -it ...`, creates a container. DO NOT run this command more than once before destroying the container.
-> To spawn that container again, run `docker stop whisper && docker rm whisper` first, or the containers' names may conflict.
+> `docker run -it ...` はコンテナを作成するコマンドです。コンテナを削除する前に再びこのコマンドを実行してコンテナを作成しないようにしてください。
+> コンテナを再作成する場合は、まず `docker stop whisper && docker rm whisper` を実行してコンテナを停止・削除してからにしてください。
+> そうでないとコンテナ名の衝突でエラーが発生します。なお、今の `docker stop` と `docker rm` は不要なコンテナを削除するために使用します。
 
-## Work with ELAN
-[ELAN](https://archive.mpi.nl/tla/elan) can import **CSV** or **TSV** formatted transcriptions into *EAF (ELAN Annotation Format)*. A guidance page below shows how to do this.
+## ELAN との組み合わせ
+[ELAN](https://archive.mpi.nl/tla/elan) は **CSV** や **TSV** 形式の文字起こしテキストファイルを *EAF (ELAN Annotation Format)* にインポートする機能を持ちます。以下のガイダンスページで操作方法を確認することができます。
 
 > File > Import > CSV / Tab-delimited Text File....
 >
@@ -52,3 +54,7 @@ $ docker exec -it whisper python transcribe.py --model='base' --input_file='inpu
 
 ## Reference
 - https://zenn.dev/kento1109/articles/d7d8f512802935
+
+---
+
+**日本語** / [English](README-en.md)
