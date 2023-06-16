@@ -1,7 +1,7 @@
 # whisper-docker
 whisper with docker
 
-:memo: Unlike original repo [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker), my Dockerfile uses CPU only version PyTorch to save image size. If you'd like to utilize GPU, please refer to original repo.
+:memo: Unlike the original repo [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker), my Dockerfile uses the CPU-only version of PyTorch to save image size.
 
 ## Setup
 Install Docker.
@@ -40,11 +40,11 @@ $ docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
 $ docker exec -it whisper python transcribe.py --model='base' --input_file='input.wav' --output_format='tsv' --language='ja'
 ```
 
-> DO NOT run this command(line 1 `docker run -it ...`) multiple times which creates a container.
-> To create that container again, run `docker kill whisper && docker rm whisper` first, or containers' name may conflict.
+> This command, `docker run -it ...`, creates a container. DO NOT run this command more than once before destroying the container.
+> To spawn that container again, run `docker stop whisper && docker rm whisper` first, or the containers' names may conflict.
 
 ## Work with ELAN
-[ELAN](https://archive.mpi.nl/tla/elan) can import **csv** or **tsv** formatted transcriptions into eaf(ELAN Annotation Format). A guide page below shows how to do this:
+[ELAN](https://archive.mpi.nl/tla/elan) can import **CSV** or **TSV** formatted transcriptions into *EAF (ELAN Annotation Format)*. A guidance page below shows how to do this.
 
 > File > Import > CSV / Tab-delimited Text File....
 >
