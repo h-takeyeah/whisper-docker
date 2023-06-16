@@ -1,7 +1,7 @@
 # whisper-docker
 whisper with docker
 
-:memo: This is a fork of [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker)
+:memo: Unlike original repo [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker), my Dockerfile uses CPU only version PyTorch to save image size. If you'd like to utilize GPU, please refer to original repo.
 
 ## Setup
 Install Docker.
@@ -11,6 +11,8 @@ $ git clone https://github.com/h-takeyeah/whisper-docker
 $ cd whisper-docker
 $ docker build -t whisper .
 ```
+
+> The image size will be approximately 2GB (not including models).
 
 ## Usage
 ### Voice recognition with microphone
