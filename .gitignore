@@ -130,5 +130,7 @@ dmypy.json
 
 # whisper
 *.pt
+*.aac
+*.m4a
 *.wav
 transcript/
