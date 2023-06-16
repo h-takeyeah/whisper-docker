@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip
-
-RUN pip install git+https://github.com/openai/whisper.git 
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir \
+    torch==2.0.1+cpu \
+    --find-links https://download.pytorch.org/whl/torch_stable.html
+RUN pip install --no-cache-dir openai-whisper==20230314
