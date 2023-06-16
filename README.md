@@ -1,7 +1,7 @@
 # whisper-docker
 whisper with docker
 
-:memo: オリジナルのリポジトリ [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker) と異なり、 Dockerfile ではイメージのサイズを節約するために CPU-only の PyTorch を利用しています。
+:memo: オリジナルのリポジトリ [karaage0703/whisper-docker](https://github.com/karaage0703/whisper-docker) と異なり、イメージサイズの節約を目的として CPU-only の PyTorch を利用しています。
 
 ## セットアップ
 Docker Desktop または Docker Engine はインストール済みとします。
@@ -9,7 +9,7 @@ Docker Desktop または Docker Engine はインストール済みとします�
 次のコマンドでイメージをビルドします:
 
 ```sh
-$ docker build -t whisper .
+docker build -t whisper .
 ```
 
 > イメージのサイズは約 2GB になると見込まれます(推論モデルを含まない容量です)。
@@ -19,26 +19,24 @@ $ docker build -t whisper .
 `whisper-docker` ディレクトリで次のコマンドを実行します:
 
 ```sh
-$ docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
-$ docker exec -it whisper bash
-nonroot@hostname:/workspace$ python whisper-server.py
+docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
+docker exec -it whisper python whisper-server.py
 ```
 
 新しい端末を開き、次のコマンドを実行します:
 
 ```sh
-$ python mic.py
+python mic.py
 ```
 
 > `mic.py` を実行するには [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) がインストールされている必要があります。
 
 ### 文字起こし
-Prepare audio file (ex: `input.wav`) and execute following command **in** `whisper-docker` directory.
 `whisper-docker` ディレクトリ以下に音声ファイルを用意し (例: `input.wav`) 、次のコマンドを `whisper-docker` ディレクトリ**の中で**実行します:
 
 ```sh
-$ docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
-$ docker exec -it whisper python transcribe.py --model='base' --input_file='input.wav' --output_format='tsv' --language='ja'
+docker run -it -d -v $(pwd):/workspace/ --net host --name whisper whisper
+docker exec -it whisper python transcribe.py --model='base' --input_file='input.wav' --output_format='tsv' --language='ja'
 ```
 
 > `docker run -it ...` はコンテナを作成するコマンドです。コンテナを削除する前に再びこのコマンドを実行してコンテナを作成しないようにしてください。
